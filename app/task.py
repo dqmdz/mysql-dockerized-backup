@@ -5,6 +5,7 @@ import logging
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 
+
 def make_backup():
 
     load_dotenv()
@@ -15,7 +16,8 @@ def make_backup():
     days = int(os.getenv('DAYS'))
     backup_path = 'backup/'
 
-    logging.info(f'host={db_host} - user={db_user} - pwd={db_password} - days={days}')
+    logging.info(
+        f'host={db_host} - user={db_user} - pwd={db_password} - days={days}')
 
     now = time.strftime('%Y%m%d')
 
@@ -34,10 +36,12 @@ def make_backup():
         db = file.readline()[:-1]
         if db.strip() != "":
             logging.info(f'backup {db}')
-            dumpcmd = "mysqldump -h " + db_host + " -u " + db_user + " -p" + db_password + " " + db + " > " + backup_path + db + now + ".sql"
+            dumpcmd = "mysqldump -h " + db_host + " -u " + db_user + " -p" + \
+                db_password + " " + db + " > " + backup_path + db + now + ".sql"
             logging.info(dumpcmd)
             os.system(dumpcmd)
-            dumpcmd = "tar -zcf " + backup_path + db + now + ".tar.gz " + backup_path + db + now + ".sql"
+            dumpcmd = "tar -zcf " + backup_path + db + now + \
+                ".tar.gz " + backup_path + db + now + ".sql"
             logging.info(dumpcmd)
             os.system(dumpcmd)
             dumpcmd = "rm " + backup_path + db + now + ".sql"
@@ -46,6 +50,6 @@ def make_backup():
             dumpcmd = "rm " + backup_path + db + before + ".tar.gz"
             logging.info(dumpcmd)
             os.system(dumpcmd)
-    
+
         p = p + 1
     file.close()

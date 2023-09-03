@@ -5,13 +5,10 @@ WORKDIR /app
 COPY requirements.txt ./
 
 RUN apk update
-RUN apk add --no-cache curl
 RUN apk add mysql-client bash
 RUN pip install -r requirements.txt
 
 COPY . .
-
-RUN chmod +x backup.sh
 
 EXPOSE 5000
 

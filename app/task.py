@@ -32,19 +32,20 @@ def make_backup():
     file = open("backup/names", 'r')
     while p <= count_db:
         db = file.readline()[:-1]
-        logging.info(f'backup {db}')
-        dumpcmd = "mysqldump -h " + db_host + " -u " + db_user + " -p" + db_password + " " + db + " > " + backup_path + db + now + ".sql"
-        logging.info(dumpcmd)
-        os.system(dumpcmd)
-        dumpcmd = "tar -zcf " + backup_path + db + now + ".tar.gz " + backup_path + db + now + ".sql"
-        logging.info(dumpcmd)
-        os.system(dumpcmd)
-        dumpcmd = "rm " + backup_path + db + now + ".sql"
-        logging.info(dumpcmd)
-        os.system(dumpcmd)
-        dumpcmd = "rm " + backup_path + db + before + ".tar.gz"
-        logging.info(dumpcmd)
-        os.system(dumpcmd)
+        if db.strip() != "":
+            logging.info(f'backup {db}')
+            dumpcmd = "mysqldump -h " + db_host + " -u " + db_user + " -p" + db_password + " " + db + " > " + backup_path + db + now + ".sql"
+            logging.info(dumpcmd)
+            os.system(dumpcmd)
+            dumpcmd = "tar -zcf " + backup_path + db + now + ".tar.gz " + backup_path + db + now + ".sql"
+            logging.info(dumpcmd)
+            os.system(dumpcmd)
+            dumpcmd = "rm " + backup_path + db + now + ".sql"
+            logging.info(dumpcmd)
+            os.system(dumpcmd)
+            dumpcmd = "rm " + backup_path + db + before + ".tar.gz"
+            logging.info(dumpcmd)
+            os.system(dumpcmd)
     
         p = p + 1
     file.close()

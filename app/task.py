@@ -12,11 +12,10 @@ def make_backup():
     db_host = os.getenv('DB_HOST')
     db_user = os.getenv('DB_USER')
     db_password = os.getenv('DB_PASSWORD')
-    instance_name = os.getenv('INSTANCE_NAME')
     days = int(os.getenv('DAYS'))
     backup_path = 'backup/'
 
-    logging.info(f'host={db_host} - user={db_user} - pwd={db_password} - instance={instance_name} - days={days}')
+    logging.info(f'host={db_host} - user={db_user} - pwd={db_password} - days={days}')
 
     now = time.strftime('%Y%m%d')
 
@@ -27,10 +26,11 @@ def make_backup():
 
     file = open("backup/names", 'r')
     count_db = len(file.readlines())
+    logging.info(f'count_db={count_db}')
     file.close()
     p = 1
     file = open("backup/names", 'r')
-    while p < count_db:
+    while p <= count_db:
         db = file.readline()[:-1]
         logging.info(f'backup {db}')
         dumpcmd = "mysqldump -h " + db_host + " -u " + db_user + " -p" + db_password + " " + db + " > " + backup_path + db + now + ".sql"

@@ -5,7 +5,7 @@ env:
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   VERSION: 1.0.0
   IMAGE: dqmdz/mysql-backup
-  TAG: ${VERSION}
+  TAG: "${GITHUB_REF#refs/heads/}.$(git rev-parse --short ${GITHUB_SHA})"
 
 on:
   push:
@@ -24,6 +24,6 @@ jobs:
     - name: Docker login
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $IMAGE:latest --tag $IMAGE:$VERSION
+      run: docker build . --file Dockerfile --tag $IMAGE:latest --tag $IMAGE:$VERSION --tag $IMAGE:$TAG
     - name: Docker push
-      run: docker push $IMAGE:latest && docker push $IMAGE:$VERSION
+      run: docker push $IMAGE:latest && docker push $IMAGE:$VERSION && docker push $IMAGE:$TAG

@@ -3,6 +3,9 @@ name: MySQL Backup CI
 env:
   DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+  VERSION: 1.0.0
+  IMAGE: dqmdz/mysql-backup
+  TAG: ${VERSION}
 
 on:
   push:
@@ -21,10 +24,6 @@ jobs:
     - name: Docker login
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - name: Build the Docker image
-      env:
-        VERSION: 1.0.0
-        IMAGE: dqmdz/mysql-backup
-        TAG: ${VERSION}
-      run: docker build . --file Dockerfile --tag ${IMAGE}:latest --tag ${IMAGE}:${VERSION}
+      run: docker build . --file Dockerfile --tag $IMAGE:latest --tag $IMAGE:${VERSION}
     - name: Docker push
       run: docker push $IMAGE:latest

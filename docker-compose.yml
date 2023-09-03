@@ -10,7 +10,6 @@ services:
       - DB_HOST=192.168.201.100
       - DB_USER=root
       - DB_PASSWORD=root
-      - INSTANCE_NAME=umhaberesrest-mysql-1
       - DAYS=7
     volumes:
       - /data/temp/backup:/app/backup

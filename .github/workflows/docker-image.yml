@@ -19,4 +19,4 @@ jobs:
         VERSION: 1.0.0
         IMAGE: dqmdz/mysql-backup
         TAGS: ${VERSION}, latest
-      run: docker build . --file Dockerfile --tag ${IMAGE}:${TAGS}
+      run: docker build . --file Dockerfile --tag ${IMAGE}:latest

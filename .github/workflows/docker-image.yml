@@ -3,7 +3,7 @@ name: MySQL Backup CI
 env:
   DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-  VERSION: 1.0.0
+  VERSION: 1.0.2
   IMAGE: dqmdz/mysql-backup
 
 on:

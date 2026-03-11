@@ -43,6 +43,7 @@ def make_backup():
             '--skip-lock-tables',
             '--skip-add-locks',
             '--compress',
+            '--ssl-verify-server-cert=0',
             db
         ]) + f' > {sql_file}'
         

@@ -42,7 +42,6 @@ def make_backup():
             '--quick',
             '--skip-lock-tables',
             '--skip-add-locks',
-            '--set-gtid-purged=OFF',
             '--compress',
             db
         ]) + f' > {sql_file}'
